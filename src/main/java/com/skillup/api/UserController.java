@@ -15,6 +15,9 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Objects;
 import java.util.UUID;
 
+/**
+ * User Service
+ */
 @RestController
 @RequestMapping("/account")
 public class UserController {
