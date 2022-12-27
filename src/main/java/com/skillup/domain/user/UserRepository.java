@@ -1,6 +1,4 @@
-package com.skillup.domain;
-
-import org.springframework.stereotype.Repository;
+package com.skillup.domain.user;
 
 public interface UserRepository {
     void createUser(UserDomain userDomain);

@@ -1,7 +1,7 @@
 package com.skillup.infrastructure;
 
-import com.skillup.domain.UserDomain;
-import com.skillup.domain.UserRepository;
+import com.skillup.domain.user.UserDomain;
+import com.skillup.domain.user.UserRepository;
 import com.skillup.infrastructure.jooq.tables.User;
 import com.skillup.infrastructure.jooq.tables.records.UserRecord;
 import org.jooq.DSLContext;
@@ -11,7 +11,7 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public class JooqUserRepo implements UserRepository {
+public class JooqUserRepo implements UserRepository, RecordDomainMapping<UserRecord, UserDomain> {
 
     @Autowired
     DSLContext dslContext;
@@ -44,7 +44,8 @@ public class JooqUserRepo implements UserRepository {
         dslContext.executeUpdate(toRecord(userDomain));
     }
 
-    private UserRecord toRecord(UserDomain userDomain){
+    @Override
+    public UserRecord toRecord(UserDomain userDomain){
         UserRecord userRecord = new UserRecord();
         userRecord.setUserId(userDomain.getUserId());
         userRecord.setUserName(userDomain.getUserName());
@@ -52,7 +53,8 @@ public class JooqUserRepo implements UserRepository {
         return userRecord;
     }
 
-    private UserDomain toDomain(UserRecord userRecord){
+    @Override
+    public UserDomain toDomain(UserRecord userRecord){
         return UserDomain.builder()
                 .userId(userRecord.getUserId())
                 .userName(userRecord.getUserName())
